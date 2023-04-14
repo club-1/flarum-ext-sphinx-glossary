@@ -12,9 +12,17 @@
 
 use Club1\SphinxGlossary\Console\SphinxUpdateCommand;
 use Flarum\Extend;
+use Flarum\Foundation\Paths;
 
 return [
     (new Extend\Console())->command(SphinxUpdateCommand::class),
+
+    (new Extend\Filesystem)
+        ->disk('club-1-sphinx-glossary', function (Paths $paths) {
+            return [
+                'root' => "$paths->storage/cache/club-1-sphinx-glossary",
+            ];
+        }),
 
     (new Extend\Frontend('forum'))
         ->js(__DIR__.'/js/dist/forum.js'),
