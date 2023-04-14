@@ -1,0 +1,13 @@
+# Project files
+/vendor
+composer.phar
+/tests/.phpunit.result.cache
+/tests/integration/tmp
+/js/coverage-ts
+
+# Common files
+.DS_Store
+Thumbs.db
+.vagrant
+.idea/*
+.vscode

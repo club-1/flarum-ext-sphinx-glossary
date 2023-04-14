@@ -1,0 +1,82 @@
+{
+    "name": "club-1/flarum-ext-sphinx-glossary",
+    "description": "Add links to the definition of terms defined in a Sphinx documentation inventory.",
+    "keywords": [
+        "flarum"
+    ],
+    "type": "flarum-extension",
+    "license": "AGPL-3.0-or-later",
+    "require": {
+        "club-1/sphinx-inventory-parser": "^0.4",
+        "flarum/core": "^1.2.0"
+    },
+    "authors": [
+        {
+            "name": "Nicolas Peugnet",
+            "email": "nicolas@club1.fr",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Club1\\SphinxGlossary\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Sphinx Glossary",
+            "category": "",
+            "icon": {
+                "name": "fas fa-book",
+                "color": "#ffffff",
+                "backgroundColor": "#0a507a"
+            }
+        },
+        "flarum-cli": {
+            "modules": {
+                "admin": true,
+                "forum": true,
+                "js": true,
+                "jsCommon": false,
+                "css": false,
+                "locale": true,
+                "gitConf": true,
+                "githubActions": false,
+                "prettier": false,
+                "typescript": true,
+                "bundlewatch": false,
+                "backendTesting": true,
+                "editorConfig": false,
+                "styleci": false
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Club1\\SphinxGlossary\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "@test:unit",
+            "@test:integration"
+        ],
+        "test:unit": "phpunit -c tests/phpunit.unit.xml",
+        "test:integration": "phpunit -c tests/phpunit.integration.xml",
+        "test:setup": "@php tests/integration/setup.php"
+    },
+    "scripts-descriptions": {
+        "test": "Runs all tests.",
+        "test:unit": "Runs all unit tests.",
+        "test:integration": "Runs all integration tests.",
+        "test:setup": "Sets up a database for use with integration tests. Execute this only once."
+    },
+    "require-dev": {
+        "flarum/testing": "^1.0.0"
+    }
+}
