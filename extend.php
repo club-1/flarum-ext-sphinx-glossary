@@ -9,13 +9,15 @@
  * file that was distributed with this source code.
  */
 
-
+use Club1\SphinxGlossary\Console\SphinxAddCommand;
 use Club1\SphinxGlossary\Console\SphinxUpdateCommand;
 use Flarum\Extend;
 use Flarum\Foundation\Paths;
 
 return [
-    (new Extend\Console())->command(SphinxUpdateCommand::class),
+    (new Extend\Console())
+        ->command(SphinxAddCommand::class)
+        ->command(SphinxUpdateCommand::class),
 
     (new Extend\Filesystem)
         ->disk('club-1-sphinx-glossary', function (Paths $paths) {
