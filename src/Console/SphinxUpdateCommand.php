@@ -51,17 +51,17 @@ class SphinxUpdateCommand extends AbstractCommand
     protected function fire()
     {
         foreach (SphinxMapping::all() as $mapping) {
-            $this->updateEntries($mapping->inventory_url);
+            $this->updateEntries($mapping);
         }
     }
 
-    protected function updateEntries(string $inventory) {
-        $cacheKey = hash('crc32b', $inventory);
+    protected function updateEntries(SphinxMapping $mapping) {
+        $cacheKey = hash('crc32b', $mapping->inventory_url);
 
         $tmp = tmpfile();
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_FILE, $tmp);
-        curl_setopt($ch, CURLOPT_URL, $inventory);
+        curl_setopt($ch, CURLOPT_URL, $mapping->inventory_url);
         if ($this->cacheDir->exists($cacheKey)) {
             $lastModified = $this->cacheDir->lastModified($cacheKey);
             curl_setopt($ch, CURLOPT_TIMEVALUE, $lastModified);
@@ -73,19 +73,19 @@ class SphinxUpdateCommand extends AbstractCommand
         if ($code == 200) {
             $this->cacheDir->writeStream($cacheKey, $tmp);
         } elseif ($code == 304) {
-            $this->info("Received '304 Not Modified' for inventory '$inventory': Skipping update.");
+            $this->info("Received '304 Not Modified' for inventory '$mapping->inventory_url': Skipping update.");
             return;
         } else {
-            throw new UnexpectedValueException("could not fetch inventory '$inventory': code $code");
+            throw new UnexpectedValueException("could not fetch inventory '$mapping->inventory_url': code $code");
         }
         fclose($tmp);
 
         $stream = $this->cacheDir->readStream($cacheKey);
         $parser = new SphinxInventoryParser($stream);
         $header = $parser->parseHeader();
-        $objects = $parser->parseObjects($header);
+        $objects = $parser->parseObjects($header, $mapping->base_url);
         foreach ($objects as $object) {
-            $this->info($object->displayName);
+            $this->info(sprintf("%s\t: %s", $object->name, $object->uri));
         }
         fclose($stream);
     }
