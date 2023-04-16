@@ -29,10 +29,13 @@ use Club1\SphinxInventoryParser\SphinxInventoryParser;
 use Flarum\Console\AbstractCommand;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use SplFixedArray;
 use UnexpectedValueException;
 
 class SphinxUpdateCommand extends AbstractCommand
 {
+    public const CHUNK_SIZE = 200;
+
     /** @var Filesystem $cacheDir */
     protected $cacheDir;
 
@@ -89,6 +92,8 @@ class SphinxUpdateCommand extends AbstractCommand
         $stream = $this->cacheDir->readStream($cacheKey);
         $parser = new SphinxInventoryParser($stream);
         $header = $parser->parseHeader();
+        $objects = new SplFixedArray(self::CHUNK_SIZE);
+        $count = 0;
         foreach ($parser->parseObjects($header, $mapping->base_url) as $o) {
             $object = new SphinxObject();
             $object->name         = $o->name;
@@ -97,7 +102,15 @@ class SphinxUpdateCommand extends AbstractCommand
             $object->priority     = $o->priority;
             $object->uri          = $o->uri;
             $object->display_name = $o->displayName;
-            $mapping->objects()->save($object);
+            $objects[$count++] = $object;
+            if ($count == self::CHUNK_SIZE) {
+                $count = 0;
+                $mapping->objects()->saveMany($objects);
+            }
+        }
+        if ($count > 0) {
+            $objects->setSize($count);
+            $mapping->objects()->saveMany($objects);
         }
         fclose($stream);
     }
