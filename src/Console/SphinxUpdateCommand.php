@@ -24,6 +24,7 @@
 namespace Club1\SphinxGlossary\Console;
 
 use Club1\SphinxGlossary\SphinxMapping;
+use Club1\SphinxGlossary\SphinxObject;
 use Club1\SphinxInventoryParser\SphinxInventoryParser;
 use Flarum\Console\AbstractCommand;
 use Illuminate\Contracts\Filesystem\Factory;
@@ -84,12 +85,19 @@ class SphinxUpdateCommand extends AbstractCommand
         }
         fclose($tmp);
 
+        $mapping->objects()->delete();
         $stream = $this->cacheDir->readStream($cacheKey);
         $parser = new SphinxInventoryParser($stream);
         $header = $parser->parseHeader();
-        $objects = $parser->parseObjects($header, $mapping->base_url);
-        foreach ($objects as $object) {
-            $this->info(sprintf("%s\t: %s", $object->name, $object->uri));
+        foreach ($parser->parseObjects($header, $mapping->base_url) as $o) {
+            $object = new SphinxObject();
+            $object->name         = $o->name;
+            $object->domain       = $o->domain;
+            $object->role         = $o->role;
+            $object->priority     = $o->priority;
+            $object->uri          = $o->uri;
+            $object->display_name = $o->displayName;
+            $mapping->objects()->save($object);
         }
         fclose($stream);
     }
