@@ -51,7 +51,11 @@ class SphinxUpdateCommand extends AbstractCommand
     protected function fire()
     {
         foreach (SphinxMapping::all() as $mapping) {
-            $this->updateEntries($mapping);
+            try {
+                $this->updateEntries($mapping);
+            } catch(\Throwable $t) {
+                $this->error("Failed to update inventory '$mapping->id': " . $t->getMessage());
+            }
         }
     }
 
