@@ -45,7 +45,7 @@ class SphinxGlossaryConfigurator
         }
         $keywords->onlyFirst = true;
         $tag = $keywords->getTag();
-        $tag->setTemplate('<a href="{@value}"><xsl:apply-templates/></a>');
+        $tag->setTemplate('<a href="{@value}" class="sphinx-object"><xsl:apply-templates/></a>');
         $tag->attributes['value']
             ->filterChain
             ->append($config->attributeFilters->get('#hashmap'))
