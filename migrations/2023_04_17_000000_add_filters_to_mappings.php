@@ -21,31 +21,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace Club1\SphinxGlossary;
+use Flarum\Database\Migration;
+use Illuminate\Database\Query\Expression;
 
-use Flarum\Database\AbstractModel;
-
-/**
- * @property string $id
- * @property string $base_url
- * @property string $inventory_url
- * @property string[] $roles
- */
-class SphinxMapping extends AbstractModel
-{
-    protected $table = 'sphinx_mappings';
-    public $incrementing = false;
-    protected $keyType = 'string';
-
-    protected $casts = [
-        'roles' => 'array',
-    ];
-
-    /**
-     * Get the objects of this mapping.
-     */
-    public function objects()
-    {
-        return $this->hasMany(SphinxObject::class);
-    }
-}
+return Migration::addColumns('sphinx_mappings', [
+    'roles' => ['json', 'default' => new Expression('(JSON_ARRAY())')],
+]);

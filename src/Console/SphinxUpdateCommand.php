@@ -95,6 +95,10 @@ class SphinxUpdateCommand extends AbstractCommand
         $objects = new SplFixedArray(self::CHUNK_SIZE);
         $count = 0;
         foreach ($parser->parseObjects($header, $mapping->base_url) as $o) {
+            $fqrole = "$o->domain:$o->role";
+            if (!in_array($fqrole, $mapping->roles) && !in_array($o->role, $mapping->roles)) {
+                continue;
+            }
             $object = new SphinxObject();
             $object->name         = $o->name;
             $object->domain       = $o->domain;

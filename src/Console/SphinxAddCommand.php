@@ -26,6 +26,7 @@ namespace Club1\SphinxGlossary\Console;
 use Club1\SphinxGlossary\SphinxMapping;
 use Flarum\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class SphinxAddCommand extends AbstractCommand
 {
@@ -36,7 +37,9 @@ class SphinxAddCommand extends AbstractCommand
             ->setDescription('Add a Sphinx documentation inventory to the mapping list')
             ->addArgument('id', InputArgument::REQUIRED, 'Identifier of the Sphinx doc')
             ->addArgument('base URL', InputArgument::REQUIRED, 'URL of the Sphinx doc')
-            ->addArgument('path', InputArgument::OPTIONAL, 'Path to the inventory', 'objects.inv');
+            ->addArgument('path', InputArgument::OPTIONAL, 'Path to the inventory', 'objects.inv')
+            ->addOption('role', 'r', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                        'Roles to use for the glossary, e.g. "term" or "py:func"', []);
     }
 
     protected function fire()
@@ -44,6 +47,7 @@ class SphinxAddCommand extends AbstractCommand
         $id = $this->input->getArgument('id');
         $baseURL = $this->input->getArgument('base URL');
         $path = $this->input->getArgument('path');
+        $roles = $this->input->getOption('role');
         if (substr($baseURL, -1) !== '/') {
             $baseURL .= '/';
         }
@@ -51,6 +55,7 @@ class SphinxAddCommand extends AbstractCommand
         $mapping->id = $id;
         $mapping->base_url = $baseURL;
         $mapping->inventory_url = $baseURL . $path;
+        $mapping->roles = $roles;
         $mapping->save();
     }
 }
