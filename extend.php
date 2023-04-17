@@ -16,6 +16,7 @@ use Club1\SphinxGlossary\Console\SphinxUpdateCommand;
 use Club1\SphinxGlossary\Formatter\SphinxGlossaryConfigurator;
 use Flarum\Extend;
 use Flarum\Foundation\Paths;
+use Illuminate\Console\Scheduling\Event;
 
 return [
     (new Extend\Formatter)
@@ -25,7 +26,10 @@ return [
         ->command(SphinxAddCommand::class)
         ->command(SphinxRemoveCommand::class)
         ->command(SphinxListCommand::class)
-        ->command(SphinxUpdateCommand::class),
+        ->command(SphinxUpdateCommand::class)
+        ->schedule('sphinx:update', function (Event $event) {
+            $event->daily();
+        }),
 
     (new Extend\Filesystem)
         ->disk('club-1-sphinx-glossary', function (Paths $paths) {
