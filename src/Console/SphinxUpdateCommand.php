@@ -69,17 +69,22 @@ class SphinxUpdateCommand extends AbstractCommand
         $tmp = tmpfile();
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_FILE, $tmp);
+        curl_setopt($ch, CURLOPT_FILETIME, true);
         curl_setopt($ch, CURLOPT_URL, $mapping->inventory_url);
-        if ($this->cacheDir->exists($cacheKey)) {
-            $lastModified = $this->cacheDir->lastModified($cacheKey);
+        if ($this->cacheDir->exists($cacheKey) && $this->cacheDir->exists("$cacheKey.lastmod")) {
+            $lastModified = $this->cacheDir->get("$cacheKey.lastmod");
             curl_setopt($ch, CURLOPT_TIMEVALUE, $lastModified);
             curl_setopt($ch, CURLOPT_TIMECONDITION, CURL_TIMECOND_IFMODSINCE);
         }
         curl_exec($ch);
         $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $lastModified = curl_getinfo($ch, CURLINFO_FILETIME);
         curl_close($ch);
         if ($code == 200) {
-            $this->cacheDir->writeStream($cacheKey, $tmp);
+            $this->cacheDir->put($cacheKey, $tmp);
+            if ($lastModified != -1) {
+                $this->cacheDir->put("$cacheKey.lastmod", $lastModified);
+            }
         } elseif ($code == 304) {
             $this->info("Received '304 Not Modified' for inventory '$mapping->inventory_url': Skipping update.");
             return;
