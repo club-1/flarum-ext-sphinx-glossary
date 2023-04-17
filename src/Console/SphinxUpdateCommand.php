@@ -71,7 +71,7 @@ class SphinxUpdateCommand extends AbstractCommand
         curl_setopt($ch, CURLOPT_FILE, $tmp);
         curl_setopt($ch, CURLOPT_FILETIME, true);
         curl_setopt($ch, CURLOPT_URL, $mapping->inventory_url);
-        if ($this->cacheDir->exists($cacheKey) && $this->cacheDir->exists("$cacheKey.lastmod")) {
+        if ($this->cacheDir->exists("$cacheKey.lastmod")) {
             $lastModified = $this->cacheDir->get("$cacheKey.lastmod");
             curl_setopt($ch, CURLOPT_TIMEVALUE, $lastModified);
             curl_setopt($ch, CURLOPT_TIMECONDITION, CURL_TIMECOND_IFMODSINCE);
@@ -81,7 +81,6 @@ class SphinxUpdateCommand extends AbstractCommand
         $lastModified = curl_getinfo($ch, CURLINFO_FILETIME);
         curl_close($ch);
         if ($code == 200) {
-            $this->cacheDir->put($cacheKey, $tmp);
             if ($lastModified != -1) {
                 $this->cacheDir->put("$cacheKey.lastmod", $lastModified);
             }
@@ -91,11 +90,10 @@ class SphinxUpdateCommand extends AbstractCommand
         } else {
             throw new UnexpectedValueException("could not fetch inventory '$mapping->inventory_url': code $code");
         }
-        fclose($tmp);
 
         $mapping->objects()->delete();
-        $stream = $this->cacheDir->readStream($cacheKey);
-        $parser = new SphinxInventoryParser($stream);
+        rewind($tmp);
+        $parser = new SphinxInventoryParser($tmp);
         $header = $parser->parseHeader();
         $objects = new SplFixedArray(self::CHUNK_SIZE);
         $count = 0;
@@ -117,10 +115,10 @@ class SphinxUpdateCommand extends AbstractCommand
                 $mapping->objects()->saveMany($objects);
             }
         }
+        fclose($tmp);
         if ($count > 0) {
             $objects->setSize($count);
             $mapping->objects()->saveMany($objects);
         }
-        fclose($stream);
     }
 }
