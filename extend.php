@@ -10,6 +10,7 @@
  */
 
 use Club1\SphinxGlossary\Console\SphinxAddCommand;
+use Club1\SphinxGlossary\Console\SphinxRemoveCommand;
 use Club1\SphinxGlossary\Console\SphinxUpdateCommand;
 use Club1\SphinxGlossary\Formatter\SphinxGlossaryConfigurator;
 use Flarum\Extend;
@@ -21,6 +22,7 @@ return [
 
     (new Extend\Console())
         ->command(SphinxAddCommand::class)
+        ->command(SphinxRemoveCommand::class)
         ->command(SphinxUpdateCommand::class),
 
     (new Extend\Filesystem)
