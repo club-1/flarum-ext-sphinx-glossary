@@ -11,10 +11,14 @@
 
 use Club1\SphinxGlossary\Console\SphinxAddCommand;
 use Club1\SphinxGlossary\Console\SphinxUpdateCommand;
+use Club1\SphinxGlossary\Formatter\SphinxGlossaryConfigurator;
 use Flarum\Extend;
 use Flarum\Foundation\Paths;
 
 return [
+    (new Extend\Formatter)
+        ->configure(SphinxGlossaryConfigurator::class),
+
     (new Extend\Console())
         ->command(SphinxAddCommand::class)
         ->command(SphinxUpdateCommand::class),
