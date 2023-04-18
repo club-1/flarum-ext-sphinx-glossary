@@ -4,12 +4,9 @@ INTERACTIVE := $(shell [ -t 0 ] && echo 1)
 PHPSTANFLAGS += $(if $(INTERACTIVE),,--no-progress) $(if $(INTERACTIVE)$(CI),,--error-format=raw)
 PHPUNITFLAGS += $(if $(INTERACTIVE)$(CI),--coverage-text,--colors=never)
 
-all: js vendor;
+all: vendor;
 
-dev: js vendor;
-
-js:
-	$(MAKE) -C $@ $(filter $(JSPHONY),$(MAKECMDGOALS))
+dev: vendor;
 
 vendor: composer.json composer.lock
 	composer install
@@ -20,21 +17,21 @@ releasepatch: V := patch
 releaseminor: V := minor
 releasemajor: V := major
 release%: PREVTAG = $(shell git describe --tags --abbrev=0)
-release%: TAG = v$(shell js/node_modules/.bin/semver -i $V $(PREVTAG))
+release%: TAG = v$(shell semver -i $V $(PREVTAG))
 release%: CONFIRM_MSG = Create release $(TAG)
 releasepatch releaseminor releasemajor: release%: .confirm check all
 	sed -i CHANGELOG.md \
 		-e '/^## \[unreleased\]/s/$$/\n\n## [$(TAG)] - $(DATE)/' \
 		-e '/^\[unreleased\]/{s/$(PREVTAG)/$(TAG)/; s#$$#\n[$(TAG)]: $(REPO_URL)/releases/tag/$(TAG)#}'
-	git add CHANGELOG.md js/dist
+	git add CHANGELOG.md
 	git commit -m $(TAG)
 	git push
 	git tag $(TAG)
 	git push --tags
 
-check: js analyse test;
+check: analyse test;
 
-analyse: js analysephp;
+analyse: analysephp;
 
 analysephp: vendor
 	vendor/bin/phpstan analyse $(PHPSTANFLAGS)
@@ -46,7 +43,7 @@ testunit testintegration: export XDEBUG_MODE=coverage
 testunit testintegration: test%: vendor
 	composer test:$* -- --coverage-cache=tests/.phpunit.cov.cache --coverage-clover=tests/.phpunit.$*.cov.xml $(PHPUNITFLAGS)
 
-clean: js cleancache
+clean: cleancache
 	rm -rf vendor
 
 cleancache:
@@ -55,5 +52,4 @@ cleancache:
 .confirm:
 	@echo -n "$(CONFIRM_MSG)? [y/N] " && read ans && [ $${ans:-N} = y ]
 
-JSPHONY = all dev check analyse clean
-.PHONY: all dev js releasepatch releaseminor releasemajor check analyse analysephp test testunit testintegration clean cleancache .confirm
+.PHONY: all dev releasepatch releaseminor releasemajor check analyse analysephp test testunit testintegration clean cleancache .confirm
