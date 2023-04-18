@@ -1,0 +1,8 @@
+.Post-body a.sphinx-object:not(:hover) {
+	border-bottom-color: var(--muted-color-light);
+	border-bottom-style: dashed;
+}
+
+.Post-body a.sphinx-object {
+	font-weight: initial;
+}
