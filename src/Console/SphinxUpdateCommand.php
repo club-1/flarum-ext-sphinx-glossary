@@ -28,8 +28,8 @@ use Club1\SphinxGlossary\SphinxObject;
 use Club1\SphinxInventoryParser\SphinxInventoryParser;
 use Flarum\Console\AbstractCommand;
 use Flarum\Formatter\Formatter;
-use Illuminate\Contracts\Filesystem\Factory;
-use Illuminate\Contracts\Filesystem\Filesystem;
+use Flarum\Console\Cache\Factory;
+use Illuminate\Contracts\Cache\Repository;
 use SplFixedArray;
 use UnexpectedValueException;
 
@@ -37,16 +37,16 @@ class SphinxUpdateCommand extends AbstractCommand
 {
     public const CHUNK_SIZE = 200;
 
-    /** @var Filesystem $cacheDir */
-    protected $cacheDir;
+    /** @var Repository $cacheDir */
+    protected $cache;
 
     /** @var Formatter $formatter */
     protected $formatter;
 
-    public function __construct(Factory $filesystemFactory, Formatter $formatter)
+    public function __construct(Factory $cacheFactory, Formatter $formatter)
     {
         parent::__construct();
-        $this->cacheDir = $filesystemFactory->disk('club-1-sphinx-glossary');
+        $this->cache = $cacheFactory->store('club-1-sphinx-glossary');
         $this->formatter = $formatter;
     }
 
@@ -89,8 +89,8 @@ class SphinxUpdateCommand extends AbstractCommand
         curl_setopt($ch, CURLOPT_FILE, $tmp);
         curl_setopt($ch, CURLOPT_FILETIME, true);
         curl_setopt($ch, CURLOPT_URL, $mapping->inventory_url);
-        if ($this->cacheDir->exists("$cacheKey.lastmod")) {
-            $lastModified = $this->cacheDir->get("$cacheKey.lastmod");
+        $lastModified = $this->cache->get($cacheKey);
+        if ($lastModified != null) {
             curl_setopt($ch, CURLOPT_TIMEVALUE, $lastModified);
             curl_setopt($ch, CURLOPT_TIMECONDITION, CURL_TIMECOND_IFMODSINCE);
         }
@@ -100,7 +100,7 @@ class SphinxUpdateCommand extends AbstractCommand
         curl_close($ch);
         if ($code == 200) {
             if ($lastModified != -1) {
-                $this->cacheDir->put("$cacheKey.lastmod", $lastModified);
+                $this->cache->put($cacheKey, $lastModified);
             }
         } elseif ($code == 304) {
             $this->info("Received '304 Not Modified' for inventory '$mapping->inventory_url': Skipping update.");
