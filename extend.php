@@ -11,6 +11,7 @@
 
 use Club1\SphinxGlossary\Console\SphinxAddCommand;
 use Club1\SphinxGlossary\Console\SphinxListCommand;
+use Club1\SphinxGlossary\Console\SphinxObjectsCommand;
 use Club1\SphinxGlossary\Console\SphinxRemoveCommand;
 use Club1\SphinxGlossary\Console\SphinxUpdateCommand;
 use Club1\SphinxGlossary\Formatter\SphinxGlossaryConfigurator;
@@ -26,6 +27,7 @@ return [
         ->command(SphinxAddCommand::class)
         ->command(SphinxRemoveCommand::class)
         ->command(SphinxListCommand::class)
+        ->command(SphinxObjectsCommand::class)
         ->command(SphinxUpdateCommand::class)
         ->schedule('sphinx:update', function (Event $event) {
             $event->daily();
