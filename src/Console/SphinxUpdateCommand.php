@@ -27,6 +27,7 @@ use Club1\SphinxGlossary\SphinxMapping;
 use Club1\SphinxGlossary\SphinxObject;
 use Club1\SphinxInventoryParser\SphinxInventoryParser;
 use Flarum\Console\AbstractCommand;
+use Flarum\Formatter\Formatter;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use SplFixedArray;
@@ -39,10 +40,14 @@ class SphinxUpdateCommand extends AbstractCommand
     /** @var Filesystem $cacheDir */
     protected $cacheDir;
 
-    public function __construct(Factory $filesystemFactory)
+    /** @var Formatter $formatter */
+    protected $formatter;
+
+    public function __construct(Factory $filesystemFactory, Formatter $formatter)
     {
         parent::__construct();
         $this->cacheDir = $filesystemFactory->disk('club-1-sphinx-glossary');
+        $this->formatter = $formatter;
     }
 
     protected function configure()
@@ -54,16 +59,29 @@ class SphinxUpdateCommand extends AbstractCommand
 
     protected function fire()
     {
+        $changed = false;
         foreach (SphinxMapping::all() as $mapping) {
             try {
-                $this->updateEntries($mapping);
+                if ($this->updateObjects($mapping)) {
+                    $changed = true;
+                }
             } catch(\Throwable $t) {
                 $this->error("Failed to update inventory '$mapping->id': " . $t->getMessage());
             }
         }
+        if ($changed) {
+            $this->formatter->flush();
+        }
     }
 
-    protected function updateEntries(SphinxMapping $mapping) {
+    /**
+     * Fetch and parse the inventory of a Sphinx mapping to update the objects in the database.
+     *
+     * @param SphinxMapping $mapping The Sphinx mapping to update.
+     * @return bool True if the inventory has changed.
+     * @throws UnexpectedValueException If an error is encountered while fetching or parsing.
+     */
+    protected function updateObjects(SphinxMapping $mapping): bool {
         $cacheKey = hash('crc32b', $mapping->inventory_url);
 
         $tmp = tmpfile();
@@ -86,7 +104,7 @@ class SphinxUpdateCommand extends AbstractCommand
             }
         } elseif ($code == 304) {
             $this->info("Received '304 Not Modified' for inventory '$mapping->inventory_url': Skipping update.");
-            return;
+            return false;
         } else {
             throw new UnexpectedValueException("could not fetch inventory '$mapping->inventory_url': code $code");
         }
@@ -120,5 +138,7 @@ class SphinxUpdateCommand extends AbstractCommand
             $objects->setSize($count);
             $mapping->objects()->saveMany($objects);
         }
+
+        return true;
     }
 }
