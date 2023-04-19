@@ -25,10 +25,21 @@ namespace Club1\SphinxGlossary\Console;
 
 use Club1\SphinxGlossary\SphinxMapping;
 use Flarum\Console\AbstractCommand;
+use Flarum\Console\Cache\Factory;
+use Illuminate\Contracts\Cache\Repository;
 use Symfony\Component\Console\Input\InputArgument;
 
 class SphinxRemoveCommand extends AbstractCommand
 {
+    /** @var Repository $cacheDir */
+    protected $cache;
+
+    public function __construct(Factory $cacheFactory)
+    {
+        parent::__construct();
+        $this->cache = $cacheFactory->store('club-1-sphinx-glossary');
+    }
+
     protected function configure()
     {
         $this
@@ -40,6 +51,8 @@ class SphinxRemoveCommand extends AbstractCommand
     protected function fire()
     {
         $id = $this->input->getArgument('id');
-        SphinxMapping::findOrFail($id)->delete();
+        $mapping = SphinxMapping::findOrFail($id);
+        $this->cache->delete($mapping->inventory_url);
+        $mapping->delete();
     }
 }

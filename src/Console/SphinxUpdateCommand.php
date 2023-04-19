@@ -82,7 +82,7 @@ class SphinxUpdateCommand extends AbstractCommand
      * @throws UnexpectedValueException If an error is encountered while fetching or parsing.
      */
     protected function updateObjects(SphinxMapping $mapping): bool {
-        $cacheKey = hash('crc32b', $mapping->inventory_url);
+        $cacheKey = $mapping->inventory_url;
 
         $tmp = tmpfile();
         $ch = curl_init();
