@@ -4,6 +4,8 @@
 
 A [Flarum](http://flarum.org) extension. Add links to the definition of terms defined in a [Sphinx documentation](https://www.sphinx-doc.org/) inventory.
 
+![demo image](https://static.club1.fr/nicolas/projects/flarum-ext-sphinx-glossary/banner.png)
+
 For now this extension does not have any GUI admin panel settings.
 It can only be configured through the [Flarum console](https://docs.flarum.org/console/).
 
