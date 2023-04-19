@@ -33,7 +33,7 @@ class SphinxRemoveCommand extends AbstractCommand
     {
         $this
             ->setName('sphinx:remove')
-            ->setDescription('Remove a Sphinx documentation inventory from the mapping list')
+            ->setDescription('Remove a Sphinx documentation inventory from the mapping list and all its objects')
             ->addArgument('id', InputArgument::REQUIRED, 'Identifier of the Sphinx doc');
     }
 

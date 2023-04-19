@@ -32,7 +32,7 @@ After enabling the extension from the admin panel, the following Flarum commands
 
     sphinx:add      Add a Sphinx documentation inventory to the mapping list
     sphinx:list     List the Sphinx inventory mappings
-    sphinx:remove   Remove a Sphinx documentation inventory from the mapping list
+    sphinx:remove   Remove a Sphinx documentation inventory from the mapping list and all its objects
     sphinx:update   Update Sphinx glossary entries by downloading the latest inventories
 
 ## Updating
