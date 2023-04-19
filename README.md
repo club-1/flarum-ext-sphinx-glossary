@@ -8,9 +8,9 @@ A [Flarum](http://flarum.org) extension. Add links to the definition of terms de
 
 This is a quite niche extension and it is still a little bit rough around the edges but it works nicely. It could be useful if your community is gathered around a software project that defines a bunch of terms in a Sphinx documentation.
 
-For now this extension does not have any GUI admin panel settings. It can only be configured through the [Flarum console](https://docs.flarum.org/console/).
+For now it does not have any GUI admin panel settings. It can only be configured through the [Flarum console](https://docs.flarum.org/console/).
 
-This extension is based on the [intersphinx feature](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html) of Sphinx and is configured in a similar fashion. Mappings that resemble the [`intersphinx_mapping` configuration value](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#confval-intersphinx_mapping) can be added to the database using the `sphinx:add` command. Then the `sphinx:update` command fetches and parses the corresponding inventories to populate the glossary.
+This extension is based on the [intersphinx feature](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html) of Sphinx and is configured in a similar fashion. Mappings that resemble the [`intersphinx_mapping` configuration value](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#confval-intersphinx_mapping) can be added to the database using the `sphinx:add` command. Then the `sphinx:update` command fetches and parses the corresponding inventories to populate the glossary. This command is scheduled to run daily. It uses HTTP caching and PHP streams to stay low on resources.
 
 By default only the `std:term` roles are used as glossary entries. This can be changed on a per mapping basis, using the `--role=ROLE` option. For example:
 
