@@ -6,17 +6,13 @@ A [Flarum](http://flarum.org) extension. Add links to the definition of terms de
 
 ![demo image](https://static.club1.fr/nicolas/projects/flarum-ext-sphinx-glossary/banner.png)
 
-For now this extension does not have any GUI admin panel settings.
-It can only be configured through the [Flarum console](https://docs.flarum.org/console/).
+This is a quite niche extension and it is still a little bit rough around the edges but it works nicely. It could be useful if your community is gathered around a software project that defines a bunch of terms in a Sphinx documentation.
 
-This extension is based on the [intersphinx feature](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html) of Sphinx and is configured in a similar fashion.
-Mappings that resemble the [`intersphinx_mapping` configuration value](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#confval-intersphinx_mapping)
-can be added to the database using the `sphinx:add` command.
-Then the `sphinx:update` command fetches and parses the corresponding inventories to populate the glossary.
+For now this extension does not have any GUI admin panel settings. It can only be configured through the [Flarum console](https://docs.flarum.org/console/).
 
-By default only the `std:term` roles are used as glossary entries.
-This can be changed on a per mapping basis, using the `--role=ROLE` option.
-For example:
+This extension is based on the [intersphinx feature](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html) of Sphinx and is configured in a similar fashion. Mappings that resemble the [`intersphinx_mapping` configuration value](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#confval-intersphinx_mapping) can be added to the database using the `sphinx:add` command. Then the `sphinx:update` command fetches and parses the corresponding inventories to populate the glossary.
+
+By default only the `std:term` roles are used as glossary entries. This can be changed on a per mapping basis, using the `--role=ROLE` option. For example:
 
     php flarum sphinx:add club1 https://club1.fr/docs/fr/ --role=term --role=logiciel --role=commande
 
@@ -57,6 +53,4 @@ This extension is based on the following libraries:
 
 - [Packagist](https://packagist.org/packages/club-1/flarum-ext-sphinx-glossary)
 - [GitHub](https://github.com/club-1/flarum-ext-sphinx-glossary)
-<!--
-- [Discuss](https://discuss.flarum.org/d/PUT_DISCUSS_SLUG_HERE)
--->
+- [Discuss](https://discuss.flarum.org/d/32764)
