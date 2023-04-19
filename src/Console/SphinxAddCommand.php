@@ -38,8 +38,8 @@ class SphinxAddCommand extends AbstractCommand
             ->addArgument('id', InputArgument::REQUIRED, 'Identifier of the Sphinx doc')
             ->addArgument('base URL', InputArgument::REQUIRED, 'URL of the Sphinx doc')
             ->addArgument('path', InputArgument::OPTIONAL, 'Path to the inventory', 'objects.inv')
-            ->addOption('role', 'r', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                        'Roles to use for the glossary, e.g. "term" or "py:func"', []);
+            ->addOption('role', 'r', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                        'Roles to use for the glossary, e.g. "term" or "py:func"', ['std:term']);
     }
 
     protected function fire()
