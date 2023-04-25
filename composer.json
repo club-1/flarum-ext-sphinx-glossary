@@ -17,6 +17,16 @@
             "role": "Developer"
         }
     ],
+    "support": {
+        "forum": "https://discuss.flarum.org/d/32764",
+        "source": "https://github.com/club-1/flarum-ext-sphinx-glossary"
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/n-peugnet"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Club1\\SphinxGlossary\\": "src/"
