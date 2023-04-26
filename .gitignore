@@ -1,7 +1,7 @@
 # Project files
 /vendor
 composer.phar
-/tests/.phpunit.result.cache
+/tests/.phpunit.*
 /tests/integration/tmp
 /js/coverage-ts
 
