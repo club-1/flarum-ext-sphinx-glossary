@@ -34,7 +34,7 @@ After enabling the extension from the admin panel, the following Flarum commands
     sphinx:remove   Remove a Sphinx documentation inventory from the mapping list and all its objects
     sphinx:update   Update Sphinx glossary entries by downloading the latest inventories
 
-### Recommandation
+### Recommendation
 
 This extension alone does not apply the formatting changes to previously posted comments. I you want to reparse all the comments posts of the database it is recommended to install and enable the [`club-1/flarum-ext-chore-commands`](https://github.com/club-1/flarum-ext-chore-commands) extension and use its `chore:reparse` command.
 
