@@ -1,6 +1,6 @@
-# Sphinx Glossary
+# CLUB1 Sphinx Glossary
 
-![License](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/club-1/flarum-ext-sphinx-glossary.svg)](https://packagist.org/packages/club-1/flarum-ext-sphinx-glossary) [![Total Downloads](https://img.shields.io/packagist/dt/club-1/flarum-ext-sphinx-glossary.svg)](https://packagist.org/packages/club-1/flarum-ext-sphinx-glossary)
+![License](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/club-1/flarum-ext-sphinx-glossary.svg)](https://packagist.org/packages/club-1/flarum-ext-sphinx-glossary) [![Total Downloads](https://img.shields.io/packagist/dt/club-1/flarum-ext-sphinx-glossary.svg)](https://packagist.org/packages/club-1/flarum-ext-sphinx-glossary) [![Coverage](https://img.shields.io/codecov/c/gh/club-1/flarum-ext-sphinx-glossary/main?token=HFJQS4C1JK)](https://codecov.io/gh/club-1/flarum-ext-sphinx-glossary) [![Build Status](https://img.shields.io/github/actions/workflow/status/club-1/flarum-ext-sphinx-glossary/check.yml?branch=main)](https://github.com/club-1/flarum-ext-sphinx-glossary/actions/workflows/check.yml)
 
 A [Flarum](http://flarum.org) extension. Add links to the definition of terms defined in a [Sphinx documentation](https://www.sphinx-doc.org/) inventory.
 
