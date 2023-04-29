@@ -43,8 +43,7 @@ analyse: analysephp;
 analysephp: vendor
 	vendor/bin/phpstan analyse $(PHPSTANFLAGS)
 
-test: testintegration;
-#test: testunit testintegration;
+test: testunit testintegration;
 
 testunit testintegration: export XDEBUG_MODE=coverage
 testunit testintegration: test%: vendor $(FLARUM_TEST_TMP_DIR)

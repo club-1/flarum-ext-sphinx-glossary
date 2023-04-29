@@ -24,6 +24,7 @@
 namespace Club1\SphinxGlossary\Formatter;
 
 use Club1\SphinxGlossary\SphinxObject;
+use Illuminate\Support\Collection;
 use s9e\TextFormatter\Configurator;
 
 class SphinxGlossaryConfigurator
@@ -39,7 +40,7 @@ class SphinxGlossaryConfigurator
         $objects = [];
         $config->plugins->load('Keywords', ['tagName' => 'SPHINXOBJ']);
         $keywords = $config->Keywords;
-        foreach (SphinxObject::all('name', 'uri') as $object) {
+        foreach ($this->getObjects() as $object) {
             $objects[$object->name] = $object->uri;
             $keywords->add($object->name); // @phpstan-ignore-line
         }
@@ -52,5 +53,15 @@ class SphinxGlossaryConfigurator
             ->setMap($objects);
         $config->SphinxGlossary = $keywords; // @phpstan-ignore-line
         unset($config->Keywords);
+    }
+
+    /**
+     * Wrapper aroud Eloquent model to allow mocking.
+     *
+     * @codeCoverageIgnore
+     */
+    protected function getObjects(): Collection
+    {
+        return SphinxObject::all('name', 'uri');
     }
 }
