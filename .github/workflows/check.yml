@@ -41,6 +41,7 @@ jobs:
 
       - name: Run check
         env:
+          DB_HOST: 127.0.0.1
           DB_USERNAME: root
           DB_PASSWORD: root
         run: make check -k PHPSTANFLAGS=-q
