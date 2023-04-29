@@ -36,6 +36,7 @@ class ConfiguratorTest extends TestCase
     /** @var Configurator */
     protected $configurator;
 
+    /** @var SphinxObject[] */
     protected $objects;
 
     public function setUp(): void
@@ -45,7 +46,8 @@ class ConfiguratorTest extends TestCase
         $this->objects = [];
     }
 
-    public function setUpObject(string $name, string $uri, string $domain = 'std', string $role = 'term', int $priority = -1, string $displayName = null) {
+    public function setUpObject(string $name, string $uri, string $domain = 'std', string $role = 'term', int $priority = -1, string $displayName = null): void
+    {
         $object = new SphinxObject();
         $object->name = $name;
         $object->uri = $uri;

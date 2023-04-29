@@ -12,5 +12,10 @@ parameters:
     - extend.php
   excludePaths:
     - *.blade.php
+  ignoreErrors:
+    - message: '#function extract is passed by reference#'
+      path: tests/unit/SphinxGlossaryConfiguratorTest.php
+    - message: '#Variable \$(parser|renderer) might not be defined#'
+      path: tests/unit/SphinxGlossaryConfiguratorTest.php
   checkMissingIterableValueType: false
   databaseMigrationsPath: ['migrations']
