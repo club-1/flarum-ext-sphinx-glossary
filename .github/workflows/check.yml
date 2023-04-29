@@ -1,0 +1,51 @@
+name: check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:latest
+        ports:
+          - 3306
+        env:
+          MYSQL_DATABASE: flarum_test
+          MYSQL_ROOT_PASSWORD: root
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
+    strategy:
+      matrix:
+        php: ['7.3', '7.4', '8.0', '8.1', '8.2']
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+
+      - uses: actions/checkout@v3
+
+      - if: ${{ matrix.php < 8.1 }}
+        run: rm composer.lock
+
+      - name: Install dependencies & build
+        run: composer install && make
+
+      - name: Run check
+        env:
+          DB_USERNAME: root
+          DB_PASSWORD: root
+        run: make check -k PHPSTANFLAGS=-q
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: tests/.phpunit.unit.cov.xml,tests/.phpunit.integration.cov.xml
