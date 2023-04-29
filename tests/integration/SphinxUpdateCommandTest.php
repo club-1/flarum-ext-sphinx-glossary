@@ -26,10 +26,10 @@ use Flarum\Testing\integration\ConsoleTestCase;
 
 class SphinxUpdateCommandTest extends ConsoleTestCase
 {
-    /** resource */
+    /** @var resource */
     protected $proc;
 
-    /** resource[] */
+    /** @var resource[] */
     protected $pipes;
 
     public function setUp(): void
@@ -61,7 +61,7 @@ class SphinxUpdateCommandTest extends ConsoleTestCase
 
     public function tearDown(): void
     {
-        stream_set_blocking($this->pipes[2], 0);
+        stream_set_blocking($this->pipes[2], false);
         $log = stream_get_contents($this->pipes[2]);
         fclose($this->pipes[2]);
         if (stripos($log, 'fail') !== false) {
