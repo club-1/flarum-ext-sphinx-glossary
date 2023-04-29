@@ -28,14 +28,14 @@ use Flarum\Console\AbstractCommand;
 
 class SphinxListCommand extends AbstractCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('sphinx:list')
             ->setDescription('List the Sphinx inventory mappings');
     }
 
-    protected function fire()
+    protected function fire(): void
     {
         $this->info(sprintf("%-15s %-35s %s", 'Identifier', 'Base URL', 'Roles'));
         foreach (SphinxMapping::all() as $mapping) {

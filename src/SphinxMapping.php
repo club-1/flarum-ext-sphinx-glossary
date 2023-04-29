@@ -24,6 +24,7 @@
 namespace Club1\SphinxGlossary;
 
 use Flarum\Database\AbstractModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $id
@@ -45,7 +46,7 @@ class SphinxMapping extends AbstractModel
     /**
      * Get the objects of this mapping.
      */
-    public function objects()
+    public function objects(): HasMany
     {
         return $this->hasMany(SphinxObject::class);
     }

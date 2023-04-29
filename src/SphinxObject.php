@@ -24,6 +24,7 @@
 namespace Club1\SphinxGlossary;
 
 use Flarum\Database\AbstractModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -43,7 +44,7 @@ class SphinxObject extends AbstractModel
     /**
      * Get the mapping that owns the object.
      */
-    public function mapping()
+    public function mapping(): BelongsTo
     {
         return $this->belongsTo(SphinxMapping::class);
     }

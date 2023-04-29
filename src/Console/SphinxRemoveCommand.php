@@ -31,7 +31,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class SphinxRemoveCommand extends AbstractCommand
 {
-    /** @var Repository $cacheDir */
+    /** @var Repository $cache */
     protected $cache;
 
     public function __construct(Factory $cacheFactory)
@@ -40,7 +40,7 @@ class SphinxRemoveCommand extends AbstractCommand
         $this->cache = $cacheFactory->store('club-1-sphinx-glossary');
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('sphinx:remove')
@@ -48,7 +48,7 @@ class SphinxRemoveCommand extends AbstractCommand
             ->addArgument('id', InputArgument::REQUIRED, 'Identifier of the Sphinx doc');
     }
 
-    protected function fire()
+    protected function fire(): void
     {
         $id = $this->input->getArgument('id');
         $mapping = SphinxMapping::findOrFail($id);

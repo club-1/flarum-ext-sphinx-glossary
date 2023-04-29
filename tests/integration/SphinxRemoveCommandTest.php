@@ -41,7 +41,7 @@ class SphinxRemoveCommandTest extends ConsoleTestCase
         ]);
     }
 
-    public function testFire()
+    public function testFire(): void
     {
         $input = [
             'command' => 'sphinx:remove',

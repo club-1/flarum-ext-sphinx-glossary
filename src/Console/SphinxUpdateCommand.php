@@ -37,7 +37,7 @@ class SphinxUpdateCommand extends AbstractCommand
 {
     public const CHUNK_SIZE = 200;
 
-    /** @var Repository $cacheDir */
+    /** @var Repository $cache */
     protected $cache;
 
     /** @var Formatter $formatter */
@@ -50,14 +50,14 @@ class SphinxUpdateCommand extends AbstractCommand
         $this->formatter = $formatter;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('sphinx:update')
             ->setDescription('Update Sphinx glossary entries by downloading the latest inventories');
     }
 
-    protected function fire()
+    protected function fire(): void
     {
         $changed = false;
         foreach (SphinxMapping::all() as $mapping) {

@@ -31,7 +31,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class SphinxObjectsCommand extends AbstractCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('sphinx:objects')
@@ -40,7 +40,7 @@ class SphinxObjectsCommand extends AbstractCommand
             ->addOption('count', 'c', InputOption::VALUE_NONE, 'Only return the number of objects');
     }
 
-    protected function fire()
+    protected function fire(): void
     {
         $id = $this->input->getArgument('id');
         $count = $this->input->getOption('count');

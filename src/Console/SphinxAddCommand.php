@@ -30,7 +30,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class SphinxAddCommand extends AbstractCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('sphinx:add')
@@ -42,7 +42,7 @@ class SphinxAddCommand extends AbstractCommand
                         'Roles to use for the glossary, e.g. "term" or "py:func"', ['std:term']);
     }
 
-    protected function fire()
+    protected function fire(): void
     {
         $id = $this->input->getArgument('id');
         $baseURL = $this->input->getArgument('base URL');
