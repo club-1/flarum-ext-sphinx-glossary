@@ -41,7 +41,7 @@ class SphinxGlossaryConfigurator
         $keywords = $config->Keywords;
         foreach (SphinxObject::all('name', 'uri') as $object) {
             $objects[$object->name] = $object->uri;
-            $keywords->add($object->name);
+            $keywords->add($object->name); // @phpstan-ignore-line
         }
         $keywords->onlyFirst = true;
         $tag = $keywords->getTag();
@@ -50,7 +50,7 @@ class SphinxGlossaryConfigurator
             ->filterChain
             ->append($config->attributeFilters->get('#hashmap'))
             ->setMap($objects);
-        $config->SphinxGlossary = $keywords;
+        $config->SphinxGlossary = $keywords; // @phpstan-ignore-line
         unset($config->Keywords);
     }
 }

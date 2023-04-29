@@ -51,7 +51,7 @@ class SphinxObjectsCommand extends AbstractCommand
             $objects = SphinxMapping::findOrFail($id)->objects;
         }
         if ($count) {
-            $this->info(count($objects));
+            $this->info(strval(count($objects)));
         } else {
             $this->info(sprintf("%-15s %-20s %s", 'Mapping', 'Domain:Role', 'Name'));
             foreach ($objects as $object) {

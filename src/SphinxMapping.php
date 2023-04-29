@@ -30,6 +30,7 @@ use Flarum\Database\AbstractModel;
  * @property string $base_url
  * @property string $inventory_url
  * @property string[] $roles
+ * @property \Illuminate\Database\Eloquent\Collection $objects
  */
 class SphinxMapping extends AbstractModel
 {

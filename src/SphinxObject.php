@@ -33,6 +33,7 @@ use Flarum\Database\AbstractModel;
  * @property int $priority
  * @property string $uri
  * @property string $display_name
+ * @property string $sphinx_mapping_id
  * @property SphinxMapping $mapping
  */
 class SphinxObject extends AbstractModel
