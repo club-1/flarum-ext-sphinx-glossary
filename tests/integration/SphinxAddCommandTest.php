@@ -33,19 +33,35 @@ class SphinxAddCommandTest extends ConsoleTestCase
         $this->prepareDatabase([]);
     }
 
-    public function testFire(): void
+    /**
+     * @dataProvider validProvider
+     */
+    public function testValid(array $input, string $id, string $baseUrl, string $inventoryUrl, array $roles): void
     {
-        $input = [
-            'command' => 'sphinx:add',
-            'id' => 'club1',
-            'base URL' => 'https://club1.fr/docs/fr',
-        ];
+        $input = array_merge(['command' => 'sphinx:add'], $input);
         $this->runCommand($input);
-        $mappings = SphinxMapping::all();
-        $this->assertCount(1, $mappings);
-        $mapping = $mappings[0];
-        $this->assertEquals('club1', $mapping->id);
-        $this->assertEquals('https://club1.fr/docs/fr/', $mapping->base_url);
-        $this->assertEquals('https://club1.fr/docs/fr/objects.inv', $mapping->inventory_url);
+        $mapping = SphinxMapping::findOrFail($id);
+        $this->assertEquals($id, $mapping->id);
+        $this->assertEquals($baseUrl, $mapping->base_url);
+        $this->assertEquals($inventoryUrl, $mapping->inventory_url);
+        $this->assertEquals($roles, $mapping->roles);
+    }
+
+    public function validProvider(): array
+    {
+        return [
+            [
+                ['id' => 'club1', 'base URL' => 'https://club1.fr/docs/fr'],
+                'club1', 'https://club1.fr/docs/fr/', 'https://club1.fr/docs/fr/objects.inv', ['std:term'],
+            ],
+            [
+                ['id' => 'club1', 'base URL' => 'https://club1.fr/docs/fr', '--role' => ['term', 'logiciel', 'commande']],
+                'club1', 'https://club1.fr/docs/fr/', 'https://club1.fr/docs/fr/objects.inv', ['term', 'logiciel', 'commande'],
+            ],
+            [
+                ['id' => 'club1', 'base URL' => 'https://club1.fr/docs/fr', 'path' => 'other-objects.inv'],
+                'club1', 'https://club1.fr/docs/fr/', 'https://club1.fr/docs/fr/other-objects.inv', ['std:term'],
+            ],
+        ];
     }
 }
