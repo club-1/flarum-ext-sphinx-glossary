@@ -48,7 +48,7 @@ class SphinxObjectsCommandTest extends ConsoleTestCase
             'id' => 'club1',
         ];
         $output = $this->runCommand($input);
-        $lines = explode("\n", $output);
+        $lines = preg_split('/\R/', $output);
         $this->assertCount(2, $lines);
         $this->assertGreaterThanOrEqual( 0, strpos($lines[0], 'Mapping'));
         $this->assertGreaterThanOrEqual(10, strpos($lines[0], 'Domain:Role'));
@@ -64,7 +64,7 @@ class SphinxObjectsCommandTest extends ConsoleTestCase
             'command' => 'sphinx:objects',
         ];
         $output = $this->runCommand($input);
-        $lines = explode("\n", $output);
+        $lines = preg_split('/\R/', $output);
         $this->assertCount(3, $lines);
     }
 
