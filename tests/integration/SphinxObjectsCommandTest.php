@@ -49,6 +49,8 @@ class SphinxObjectsCommandTest extends ConsoleTestCase
         ];
         $output = $this->runCommand($input);
         $lines = preg_split('/\R/', $output);
+        var_dump($output);
+        var_dump($lines);
         $this->assertGreaterThanOrEqual( 0, strpos($lines[0], 'Mapping'));
         $this->assertGreaterThanOrEqual(10, strpos($lines[0], 'Domain:Role'));
         $this->assertGreaterThanOrEqual(30, strpos($lines[0], 'Name'));
