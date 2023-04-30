@@ -48,7 +48,7 @@ class SphinxObjectsCommand extends AbstractCommand
         if ($id == null) {
             $objects = SphinxObject::all();
         } else {
-            $objects = SphinxMapping::findOrFail($id)->objects;
+            $objects = SphinxMapping::findOrFail($id)->objects()->get();
         }
         if ($count) {
             $this->info(strval(count($objects)));
