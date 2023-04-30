@@ -46,6 +46,6 @@ class SphinxObject extends AbstractModel
      */
     public function mapping(): BelongsTo
     {
-        return $this->belongsTo(SphinxMapping::class);
+        return $this->belongsTo(SphinxMapping::class, 'sphinx_mapping_id');
     }
 }
