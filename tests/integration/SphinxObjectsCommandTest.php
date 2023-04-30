@@ -73,7 +73,7 @@ class SphinxObjectsCommandTest extends ConsoleTestCase
     {
         $input = [
             'command' => 'sphinx:objects',
-            'id' => 'parser',
+            'id' => 'club1',
             '--count' => true,
         ];
         $output = $this->runCommand($input);
