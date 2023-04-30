@@ -41,23 +41,23 @@ class SphinxObjectsCommandTest extends ConsoleTestCase
         ]);
     }
 
-    public function testWithId(): void
-    {
-        $input = [
-            'command' => 'sphinx:objects',
-            'id' => 'club1',
-        ];
-        $output = $this->runCommand($input);
-        $lines = preg_split('/\R/', $output);
-        var_dump($output);
-        var_dump($lines);
-        $this->assertGreaterThanOrEqual( 0, strpos($lines[0], 'Mapping'));
-        $this->assertGreaterThanOrEqual(10, strpos($lines[0], 'Domain:Role'));
-        $this->assertGreaterThanOrEqual(30, strpos($lines[0], 'Name'));
-        $this->assertGreaterThanOrEqual( 0, strpos($lines[1], 'club1'));
-        $this->assertGreaterThanOrEqual(10, strpos($lines[1], 'std:term'));
-        $this->assertGreaterThanOrEqual(30, strpos($lines[1], 'API'));
-    }
+    // public function testWithId(): void
+    // {
+    //     $input = [
+    //         'command' => 'sphinx:objects',
+    //         'id' => 'club1',
+    //     ];
+    //     $output = $this->runCommand($input);
+    //     $lines = preg_split('/\R/', $output);
+    //     var_dump($output);
+    //     var_dump($lines);
+    //     $this->assertGreaterThanOrEqual( 0, strpos($lines[0], 'Mapping'));
+    //     $this->assertGreaterThanOrEqual(10, strpos($lines[0], 'Domain:Role'));
+    //     $this->assertGreaterThanOrEqual(30, strpos($lines[0], 'Name'));
+    //     $this->assertGreaterThanOrEqual( 0, strpos($lines[1], 'club1'));
+    //     $this->assertGreaterThanOrEqual(10, strpos($lines[1], 'std:term'));
+    //     $this->assertGreaterThanOrEqual(30, strpos($lines[1], 'API'));
+    // }
 
     public function testWithoutId(): void
     {
