@@ -36,7 +36,7 @@ class SphinxRemoveCommandTest extends ConsoleTestCase
                 ['id' => 'club1', 'base_url' => 'https://club1.fr/docs/fr/', 'inventory_url' => 'https://club1.fr/docs/fr/objects.inv', 'roles' => '[]'],
             ],
             'sphinx_objects' => [
-                ['id' => 0, 'name' => 'API', 'domain' => 'std', 'role' => 'term', 'priority' => -1, 'uri' => 'https://club1.fr/docs/fr/glossary.html#term-API', 'display_name' => 'API', 'sphinx_mapping_id' => 'club1'],
+                ['id' => 1, 'name' => 'API', 'domain' => 'std', 'role' => 'term', 'priority' => -1, 'uri' => 'https://club1.fr/docs/fr/glossary.html#term-API', 'display_name' => 'API', 'sphinx_mapping_id' => 'club1'],
             ],
         ]);
     }
@@ -47,6 +47,9 @@ class SphinxRemoveCommandTest extends ConsoleTestCase
             'command' => 'sphinx:remove',
             'id' => 'club1',
         ];
+        $this->app();
+        $this->assertCount(1, SphinxMapping::all());
+        $this->assertCount(1, SphinxObject::all());
         $this->runCommand($input);
         $this->assertCount(0, SphinxMapping::all());
         $this->assertCount(0, SphinxObject::all());

@@ -35,8 +35,8 @@ class SphinxObjectsCommandTest extends ConsoleTestCase
                 ['id' => 'parser', 'base_url' => 'https://club-1.github.io/sphinx-inventory-parser/', 'inventory_url' => 'https://club-1.github.io/sphinx-inventory-parser/objects.inv', 'roles' => '[]'],
             ],
             'sphinx_objects' => [
-                ['id' => 0, 'name' => 'API', 'domain' => 'std', 'role' => 'term', 'priority' => -1, 'uri' => 'https://club1.fr/docs/fr/glossary.html#term-API', 'display_name' => 'API', 'sphinx_mapping_id' => 'club1'],
-                ['id' => 1, 'name' => 'SphinxObject', 'domain' => 'php', 'role' => 'class', 'priority' => 0, 'uri' => 'https://club-1.github.io/sphinx-inventory-parser/api.html#SphinxObject', 'display_name' => 'SphinxObject', 'sphinx_mapping_id' => 'parser'],
+                ['id' => 1, 'name' => 'API', 'domain' => 'std', 'role' => 'term', 'priority' => -1, 'uri' => 'https://club1.fr/docs/fr/glossary.html#term-API', 'display_name' => 'API', 'sphinx_mapping_id' => 'club1'],
+                ['id' => 2, 'name' => 'SphinxObject', 'domain' => 'php', 'role' => 'class', 'priority' => 0, 'uri' => 'https://club-1.github.io/sphinx-inventory-parser/api.html#SphinxObject', 'display_name' => 'SphinxObject', 'sphinx_mapping_id' => 'parser'],
             ],
         ]);
     }
