@@ -46,6 +46,14 @@ php flarum migrate
 php flarum cache:clear
 ```
 
+## Development
+
+The following tools are needed for development:
+
+- [Make](https://www.gnu.org/software/make/)
+- [Composer](https://getcomposer.org/)
+- [BusyBox](https://busybox.net/)
+
 ## Acknowledgement
 
 This extension is based on the following libraries:
