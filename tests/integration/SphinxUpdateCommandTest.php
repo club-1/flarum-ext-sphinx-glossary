@@ -24,6 +24,7 @@
 use Club1\SphinxGlossary\SphinxMapping;
 use Club1\SphinxGlossary\SphinxObject;
 use Flarum\Testing\integration\ConsoleTestCase;
+use Illuminate\Contracts\Cache\Repository;
 
 class SphinxUpdateCommandTest extends ConsoleTestCase
 {
@@ -46,7 +47,7 @@ class SphinxUpdateCommandTest extends ConsoleTestCase
             1 => STDOUT,
             2 => ['pipe', 'w'],
         ];
-        $command = ['php', '-S', "127.0.0.1:$this->port", '-t', 'tests/data'];
+        $command = ['busybox', 'httpd', '-f', '-p', $this->port, '-h', 'tests/data'];
         $this->proc= proc_open($command, $descriptors, $this->pipes);
         if (!is_resource($this->proc)) {
             throw new RuntimeException('Could not run command: ' . implode(' ', $command));
@@ -68,20 +69,20 @@ class SphinxUpdateCommandTest extends ConsoleTestCase
         stream_set_blocking($this->pipes[2], false);
         $log = stream_get_contents($this->pipes[2]);
         fclose($this->pipes[2]);
-        if (stripos($log, 'fail') !== false) {
+        if (!empty($log)) {
             error_log($log);
         }
         proc_terminate($this->proc);
         proc_close($this->proc);
+        $this->app()->getContainer()->make(Repository::class)->getStore()->flush();
         parent::tearDown();
     }
 
     public function testBasic(): void
     {
-        $input = [
-            'command' => 'sphinx:update',
-        ];
-        $this->runCommand($input);
+        $input = ['command' => 'sphinx:update'];
+        $output = $this->runCommand($input);
+        $this->assertEquals('', $output);
         $this->assertCount(57, SphinxObject::all());
     }
 
@@ -92,9 +93,7 @@ class SphinxUpdateCommandTest extends ConsoleTestCase
         assert($mapping instanceof SphinxMapping);
         $mapping->inventory_url .= '.notexist';
         $mapping->save();
-        $input = [
-            'command' => 'sphinx:update',
-        ];
+        $input = ['command' => 'sphinx:update'];
         $output = $this->runCommand($input);
         $this->assertCount(0, SphinxObject::all());
         $this->assertEquals("Failed to update inventory 'club1': could not fetch inventory 'http://127.0.0.1:$this->port/objects.inv.notexist': code 404", $output);
