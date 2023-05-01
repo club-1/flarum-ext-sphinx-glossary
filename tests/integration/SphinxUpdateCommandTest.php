@@ -96,6 +96,19 @@ class SphinxUpdateCommandTest extends ConsoleTestCase
         $this->assertEquals("Received '304 Not Modified' for inventory 'http://127.0.0.1:$this->port/objects.inv': Skipping update.", $output);
     }
 
+    public function testChunkedUpdate(): void
+    {
+        $this->app();
+        $mapping = SphinxMapping::findOrFail('club1');
+        assert($mapping instanceof SphinxMapping);
+        $mapping->roles = ['term', 'logiciel', 'label'];
+        $mapping->save();
+        $input = ['command' => 'sphinx:update'];
+        $output = $this->runCommand($input);
+        $this->assertEquals('', $output);
+        $this->assertCount(318, SphinxObject::all());
+    }
+
     public function testNotExist(): void
     {
         $this->app();
