@@ -24,7 +24,7 @@
 use Club1\SphinxGlossary\SphinxMapping;
 use Club1\SphinxGlossary\SphinxObject;
 use Flarum\Testing\integration\ConsoleTestCase;
-use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Contracts\Cache\Store;
 
 class SphinxUpdateCommandTest extends ConsoleTestCase
 {
@@ -74,7 +74,7 @@ class SphinxUpdateCommandTest extends ConsoleTestCase
         }
         proc_terminate($this->proc);
         proc_close($this->proc);
-        $this->app()->getContainer()->make(Repository::class)->getStore()->flush();
+        $this->app()->getContainer()->make(Store::class)->flush();
         parent::tearDown();
     }
 
