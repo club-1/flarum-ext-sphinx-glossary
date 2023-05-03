@@ -86,14 +86,18 @@ class SphinxUpdateCommandTest extends ConsoleTestCase
         $this->assertCount(57, SphinxObject::all());
     }
 
+    /**
+     * Skip this test if testBasic fails.
+     *
+     * @depends testBasic
+     */
     public function testCache(): void
     {
         $input = ['command' => 'sphinx:update'];
         $output = $this->runCommand($input);
-        $this->assertEquals('', $output);
-        $this->assertCount(57, SphinxObject::all());
         $output = $this->runCommand($input);
         $this->assertEquals("Received '304 Not Modified' for inventory 'http://127.0.0.1:$this->port/objects.inv': Skipping update.", $output);
+        $this->assertCount(57, SphinxObject::all());
     }
 
     public function testChunkedUpdate(): void

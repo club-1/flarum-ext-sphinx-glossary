@@ -28,7 +28,6 @@ use Club1\SphinxGlossary\SphinxObject;
 use Club1\SphinxInventoryParser\SphinxInventoryParser;
 use Flarum\Console\AbstractCommand;
 use Flarum\Formatter\Formatter;
-use Flarum\Console\Cache\Factory;
 use Illuminate\Contracts\Cache\Repository;
 use SplFixedArray;
 use UnexpectedValueException;
@@ -43,10 +42,10 @@ class SphinxUpdateCommand extends AbstractCommand
     /** @var Formatter $formatter */
     protected $formatter;
 
-    public function __construct(Factory $cacheFactory, Formatter $formatter)
+    public function __construct(Repository $cache, Formatter $formatter)
     {
         parent::__construct();
-        $this->cache = $cacheFactory->store('club-1-sphinx-glossary');
+        $this->cache = $cache;
         $this->formatter = $formatter;
     }
 
