@@ -93,13 +93,16 @@ class ConfiguratorTest extends TestCase
     public function basicProvider(): array
     {
         return [
-            // Basic test
+            "Basic test" =>
             ['test API', 'test <SPHINXOBJ value="#term-API">API</SPHINXOBJ>'],
-            // Case sensitive
+
+            "Case sensitive" =>
             ['test api', 'test api'],
-            // Only first should match
+
+            "Only first should match" =>
             ['an API is an API', 'an <SPHINXOBJ value="#term-API">API</SPHINXOBJ> is an API'],
-            // Multiple terms
+
+            "Multiple terms" =>
             ['a CLI is an API', 'a <SPHINXOBJ value="#term-CLI">CLI</SPHINXOBJ> is an <SPHINXOBJ value="#term-API">API</SPHINXOBJ>'],
 
         ];

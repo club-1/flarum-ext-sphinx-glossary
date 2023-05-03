@@ -50,15 +50,15 @@ class SphinxAddCommandTest extends ConsoleTestCase
     public function validProvider(): array
     {
         return [
-            [
+            "basic" => [
                 ['id' => 'club1', 'base URL' => 'https://club1.fr/docs/fr'],
                 'club1', 'https://club1.fr/docs/fr/', 'https://club1.fr/docs/fr/objects.inv', ['std:term'],
             ],
-            [
+            "with role option" => [
                 ['id' => 'club1', 'base URL' => 'https://club1.fr/docs/fr', '--role' => ['term', 'logiciel', 'commande']],
                 'club1', 'https://club1.fr/docs/fr/', 'https://club1.fr/docs/fr/objects.inv', ['term', 'logiciel', 'commande'],
             ],
-            [
+            "with path argument" => [
                 ['id' => 'club1', 'base URL' => 'https://club1.fr/docs/fr', 'path' => 'other-objects.inv'],
                 'club1', 'https://club1.fr/docs/fr/', 'https://club1.fr/docs/fr/other-objects.inv', ['std:term'],
             ],
