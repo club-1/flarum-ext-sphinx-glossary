@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a855f9e40b50260a8b58b91efc438bb3",
+    "content-hash": "606ec28ccb0e45b7343bbe508d86f5e2",
     "packages": [
         {
             "name": "axy/backtrace",
@@ -116,16 +116,16 @@
         },
         {
             "name": "club-1/sphinx-inventory-parser",
-            "version": "v0.4.0",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/club-1/sphinx-inventory-parser.git",
-                "reference": "e6ac6ad29232b88a495ec0458655102786f61019"
+                "reference": "59f553381d89c55f3e6d1a1b90e36c6f29bb7134"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/club-1/sphinx-inventory-parser/zipball/e6ac6ad29232b88a495ec0458655102786f61019",
-                "reference": "e6ac6ad29232b88a495ec0458655102786f61019",
+                "url": "https://api.github.com/repos/club-1/sphinx-inventory-parser/zipball/59f553381d89c55f3e6d1a1b90e36c6f29bb7134",
+                "reference": "59f553381d89c55f3e6d1a1b90e36c6f29bb7134",
                 "shasum": ""
             },
             "require": {
@@ -158,9 +158,9 @@
             "support": {
                 "docs": "https://club-1.github.io/sphinx-inventory-parser/",
                 "issues": "https://github.com/club-1/sphinx-inventory-parser/issues",
-                "source": "https://github.com/club-1/sphinx-inventory-parser/tree/v0.4.0"
+                "source": "https://github.com/club-1/sphinx-inventory-parser/tree/v1.0.0"
             },
-            "time": "2023-04-14T16:54:04+00:00"
+            "time": "2023-05-07T10:58:07+00:00"
         },
         {
             "name": "components/font-awesome",
@@ -3113,16 +3113,16 @@
         },
         {
             "name": "laminas/laminas-httphandlerrunner",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-httphandlerrunner.git",
-                "reference": "4845298215708c660f76a2d5d8b78e67979457c5"
+                "reference": "a894a341ec2b0995919265db4f463fb1d5128134"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-httphandlerrunner/zipball/4845298215708c660f76a2d5d8b78e67979457c5",
-                "reference": "4845298215708c660f76a2d5d8b78e67979457c5",
+                "url": "https://api.github.com/repos/laminas/laminas-httphandlerrunner/zipball/a894a341ec2b0995919265db4f463fb1d5128134",
+                "reference": "a894a341ec2b0995919265db4f463fb1d5128134",
                 "shasum": ""
             },
             "require": {
@@ -3133,10 +3133,10 @@
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.5.0",
-                "laminas/laminas-diactoros": "^2.25.1",
-                "phpunit/phpunit": "^10.0.19",
+                "laminas/laminas-diactoros": "^2.25.2",
+                "phpunit/phpunit": "^10.1.2",
                 "psalm/plugin-phpunit": "^0.18.4",
-                "vimeo/psalm": "^5.9"
+                "vimeo/psalm": "^5.11"
             },
             "type": "library",
             "extra": {
@@ -3176,7 +3176,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-04-09T21:49:08+00:00"
+            "time": "2023-05-05T16:09:27+00:00"
         },
         {
             "name": "laminas/laminas-stratigility",
@@ -10071,23 +10071,23 @@
         },
         {
             "name": "react/promise",
-            "version": "v2.9.0",
+            "version": "v2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "234f8fd1023c9158e2314fa9d7d0e6a83db42910"
+                "reference": "f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/promise/zipball/234f8fd1023c9158e2314fa9d7d0e6a83db42910",
-                "reference": "234f8fd1023c9158e2314fa9d7d0e6a83db42910",
+                "url": "https://api.github.com/repos/reactphp/promise/zipball/f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38",
+                "reference": "f913fb8cceba1e6644b7b90c4bfb678ed8a3ef38",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.36"
+                "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.36"
             },
             "type": "library",
             "autoload": {
@@ -10131,19 +10131,15 @@
             ],
             "support": {
                 "issues": "https://github.com/reactphp/promise/issues",
-                "source": "https://github.com/reactphp/promise/tree/v2.9.0"
+                "source": "https://github.com/reactphp/promise/tree/v2.10.0"
             },
             "funding": [
                 {
-                    "url": "https://github.com/WyriHaximus",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/clue",
-                    "type": "github"
+                    "url": "https://opencollective.com/reactphp",
+                    "type": "open_collective"
                 }
             ],
-            "time": "2022-02-11T10:27:51+00:00"
+            "time": "2023-05-02T15:15:43+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -10445,16 +10441,16 @@
         },
         {
             "name": "sebastian/diff",
-            "version": "4.0.4",
+            "version": "4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "3461e3fccc7cfdfc2720be910d3bd73c69be590d"
+                "reference": "74be17022044ebaaecfdf0c5cd504fc9cd5a7131"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/3461e3fccc7cfdfc2720be910d3bd73c69be590d",
-                "reference": "3461e3fccc7cfdfc2720be910d3bd73c69be590d",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/74be17022044ebaaecfdf0c5cd504fc9cd5a7131",
+                "reference": "74be17022044ebaaecfdf0c5cd504fc9cd5a7131",
                 "shasum": ""
             },
             "require": {
@@ -10499,7 +10495,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/diff/issues",
-                "source": "https://github.com/sebastianbergmann/diff/tree/4.0.4"
+                "source": "https://github.com/sebastianbergmann/diff/tree/4.0.5"
             },
             "funding": [
                 {
@@ -10507,7 +10503,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-26T13:10:38+00:00"
+            "time": "2023-05-07T05:35:17+00:00"
         },
         {
             "name": "sebastian/environment",

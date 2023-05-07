@@ -9,7 +9,7 @@
     "require": {
         "php": ">=7.4",
         "ext-curl": "*",
-        "club-1/sphinx-inventory-parser": "^0.4",
+        "club-1/sphinx-inventory-parser": "^1.0",
         "flarum/core": "^1.2.0"
     },
     "authors": [

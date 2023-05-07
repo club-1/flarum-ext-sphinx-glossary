@@ -2,6 +2,10 @@
 
 ## [unreleased]
 
+### Changed
+
+- Bump `club-1/sphinx-inventory-parser` from `^0.4` to `^1.0`.
+
 ## [v1.0.0] - 2023-05-03
 
 First stable release.
