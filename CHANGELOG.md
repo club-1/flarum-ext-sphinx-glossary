@@ -2,6 +2,11 @@
 
 ## [unreleased]
 
+### Fixed
+
+- Fix font-weight of keywords in `<strong>` tags by using `inherit` instead of
+  `initial`.
+
 ### Changed
 
 - Bump `club-1/sphinx-inventory-parser` from `^0.4` to `^1.0`.

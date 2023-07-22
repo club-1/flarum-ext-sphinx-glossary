@@ -4,5 +4,5 @@
 }
 
 .Post-body a.sphinx-object {
-	font-weight: initial;
+	font-weight: inherit;
 }
