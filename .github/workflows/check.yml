@@ -53,6 +53,7 @@ jobs:
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: tests/.phpunit.unit.cov.xml,tests/.phpunit.integration.cov.xml
 
   analyse:
