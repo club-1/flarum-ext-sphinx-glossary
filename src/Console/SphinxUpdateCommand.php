@@ -66,6 +66,7 @@ class SphinxUpdateCommand extends AbstractCommand
                 }
             } catch(\Throwable $t) {
                 $this->error("Failed to update inventory '$mapping->id': " . $t->getMessage());
+                return;
             }
         }
         if ($changed) {
@@ -93,7 +94,10 @@ class SphinxUpdateCommand extends AbstractCommand
             curl_setopt($ch, CURLOPT_TIMEVALUE, $lastModified);
             curl_setopt($ch, CURLOPT_TIMECONDITION, CURL_TIMECOND_IFMODSINCE);
         }
-        curl_exec($ch);
+        if (curl_exec($ch) === false) {
+            $errormsg = curl_error($ch);
+            throw new UnexpectedValueException("fetch inventory '$mapping->inventory_url': curl error: $errormsg");
+        }
         $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         $lastModified = curl_getinfo($ch, CURLINFO_FILETIME);
         curl_close($ch);
@@ -105,7 +109,7 @@ class SphinxUpdateCommand extends AbstractCommand
             $this->info("Received '304 Not Modified' for inventory '$mapping->inventory_url': Skipping update.");
             return false;
         } else {
-            throw new UnexpectedValueException("could not fetch inventory '$mapping->inventory_url': code $code");
+            throw new UnexpectedValueException("fetch inventory '$mapping->inventory_url': response code $code");
         }
 
         $mapping->objects()->delete();
