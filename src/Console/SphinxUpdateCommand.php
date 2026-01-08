@@ -35,6 +35,7 @@ use UnexpectedValueException;
 class SphinxUpdateCommand extends AbstractCommand
 {
     public const CHUNK_SIZE = 200;
+    public const VERSION = "v1.0.1";
 
     /** @var Repository $cache */
     protected $cache;
@@ -84,8 +85,10 @@ class SphinxUpdateCommand extends AbstractCommand
     protected function updateObjects(SphinxMapping $mapping): bool {
         $cacheKey = $mapping->inventory_url;
 
+        $version = substr(self::VERSION, 1);
         $tmp = tmpfile();
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_USERAGENT, "flarum-ext-sphinx-glossary/$version");
         curl_setopt($ch, CURLOPT_FILE, $tmp);
         curl_setopt($ch, CURLOPT_FILETIME, true);
         curl_setopt($ch, CURLOPT_URL, $mapping->inventory_url);

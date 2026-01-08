@@ -28,6 +28,8 @@ release%: PREVTAG = $(shell git describe --tags --abbrev=0)
 release%: TAG = v$(shell $(call bump,$V,$(PREVTAG:v%=%)))
 release%: CONFIRM_MSG = Create release $(TAG)
 releasepatch releaseminor releasemajor: release%: .confirm check all
+	sed -i src/Console/SphinxUpdateCommand.php \
+		-e 's/$(PREVTAG)/$(TAG)/'
 	sed -i CHANGELOG.md \
 		-e '/^## \[unreleased\]/s/$$/\n\n## [$(TAG)] - $(DATE)/' \
 		-e '/^\[unreleased\]/{s/$(PREVTAG)/$(TAG)/; s#$$#\n[$(TAG)]: $(REPO_URL)/releases/tag/$(TAG)#}'
