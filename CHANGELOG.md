@@ -2,6 +2,8 @@
 
 ## [unreleased]
 
+## [v1.0.3] - 2026-01-09
+
 ### Fixed
 
 - Fix release script to also include version bump in User-Agent.
@@ -28,7 +30,8 @@
 
 First stable release.
 
-[unreleased]: https://github.com/club-1/flarum-ext-sphinx-glossary/compare/v1.0.2...HEAD
+[unreleased]: https://github.com/club-1/flarum-ext-sphinx-glossary/compare/v1.0.3...HEAD
+[v1.0.3]: https://github.com/club-1/flarum-ext-sphinx-glossary/releases/tag/v1.0.3
 [v1.0.2]: https://github.com/club-1/flarum-ext-sphinx-glossary/releases/tag/v1.0.2
 [v1.0.1]: https://github.com/club-1/flarum-ext-sphinx-glossary/releases/tag/v1.0.1
 [v1.0.0]: https://github.com/club-1/flarum-ext-sphinx-glossary/releases/tag/v1.0.0
