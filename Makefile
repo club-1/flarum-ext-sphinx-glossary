@@ -33,7 +33,7 @@ releasepatch releaseminor releasemajor: release%: .confirm check all
 	sed -i CHANGELOG.md \
 		-e '/^## \[unreleased\]/s/$$/\n\n## [$(TAG)] - $(DATE)/' \
 		-e '/^\[unreleased\]/{s/$(PREVTAG)/$(TAG)/; s#$$#\n[$(TAG)]: $(REPO_URL)/releases/tag/$(TAG)#}'
-	git add CHANGELOG.md
+	git add .
 	git commit -m $(TAG)
 	git push
 	git tag $(TAG)

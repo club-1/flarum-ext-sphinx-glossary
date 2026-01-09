@@ -2,6 +2,10 @@
 
 ## [unreleased]
 
+### Fixed
+
+- Fix release script to also include version bump in User-Agent.
+
 ## [v1.0.2] - 2026-01-09
 
 ### Fixed

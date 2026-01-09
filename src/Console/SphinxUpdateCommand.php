@@ -35,7 +35,7 @@ use UnexpectedValueException;
 class SphinxUpdateCommand extends AbstractCommand
 {
     public const CHUNK_SIZE = 200;
-    public const VERSION = "v1.0.1";
+    public const VERSION = "v1.0.2";
 
     /** @var Repository $cache */
     protected $cache;
