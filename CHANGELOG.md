@@ -2,6 +2,11 @@
 
 ## [unreleased]
 
+### Fixed
+
+- Set a User-Agent for HTTP requests as recommended by the RFC.
+- Better error messages in case of cURL error.
+
 ## [v1.0.1] - 2023-07-22
 
 ### Fixed
