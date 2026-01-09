@@ -125,4 +125,17 @@ class SphinxUpdateCommandTest extends ConsoleTestCase
         $this->assertCount(0, SphinxObject::all());
         $this->assertEquals("Failed to update inventory 'club1': fetch inventory 'http://127.0.0.1:$this->port/objects.inv.notexist': response code 404", $output);
     }
+
+    public function testNotListening(): void
+    {
+        $this->app();
+        $mapping = SphinxMapping::findOrFail('club1');
+        assert($mapping instanceof SphinxMapping);
+        $mapping->inventory_url = 'http://127.0.0.1:22/objects.inv';
+        $mapping->save();
+        $input = ['command' => 'sphinx:update'];
+        $output = $this->runCommand($input);
+        $this->assertCount(0, SphinxObject::all());
+        $this->assertStringContainsString("Failed to update inventory 'club1': fetch inventory 'http://127.0.0.1:22/objects.inv': curl error:", $output);
+    }
 }
